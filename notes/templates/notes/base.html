@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteFellas</title>
+    <link rel="stylesheet" href="{% static 'notes/css/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{% url 'notes:home' %}" class="logo">NoteFellas</a>
+
+        <button class="hamburger" id="hamburger">&#9776;</button>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="{% url 'notes:home' %}">Home</a></li>
+            <li><a href="{% url 'notes:literature' %}">Literatura</a></li>
+
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'notes:upload_note' %}">Upload</a></li>
+                <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li><a href="{% url 'accounts:register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <script src="{% static 'notes/js/nav.js' %}"></script>
+</body>
+</html>
