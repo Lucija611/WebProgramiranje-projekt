@@ -1,4 +1,5 @@
 {% extends 'notes/base.html' %}
+{% load static %}
 
 {% block content %}
     <h1>{{ note.title }}</h1>
@@ -6,4 +7,42 @@
     <p>Fakultet: {{ note.faculty }}</p>
     <p>Autor: {{ note.author.username }}</p>
     <p>{{ note.description }}</p>
+
+    <p>
+        <a href="{% url 'notes:download_note' note.id %}">Preuzmi datoteku</a>
+    </p>
+
+    {% if user.is_authenticated %}
+        <button class="favorite-btn" data-note-id="{{ note.id }}">
+            {% if note.is_fav %}❤️{% else %}🤍{% endif %}
+        </button>
+    {% endif %}
+
+    {% if note.average_rating %}
+        <p>Prosječna ocjena: {{ note.average_rating }} / 5</p>
+    {% else %}
+        <p>Još nema ocjena.</p>
+    {% endif %}
+
+    <h2>Komentari</h2>
+
+    {% for review in reviews %}
+        <div class="review">
+            <strong>{{ review.reviewer.username }}</strong> - ocjena: {{ review.rating }}/5
+            <p>{{ review.text }}</p>
+        </div>
+    {% empty %}
+        <p>Još nema komentara.</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h3>Dodaj komentar</h3>
+        <form method="post" action="{% url 'notes:add_review' note.id %}">
+            {% csrf_token %}
+            {{ review_form.as_p }}
+            <button type="submit">Objavi komentar</button>
+        </form>
+    {% endif %}
+
+    <script src="{% static 'notes/js/favorite.js' %}"></script>
 {% endblock %}

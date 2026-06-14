@@ -1,0 +1,23 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+    <h1>Moj Dashboard</h1>
+
+    <h2>Moje skripte</h2>
+    <div class="notes-grid">
+        {% for note in my_notes %}
+            {% include 'notes/note_card.html' with show_edit_delete=True %}
+        {% empty %}
+            <p>Još nisi objavila niti jednu skriptu.</p>
+        {% endfor %}
+    </div>
+
+    <h2>Moji favoriti</h2>
+    <div class="notes-grid">
+        {% for note in favorite_notes %}
+            {% include 'notes/note_card.html' %}
+        {% empty %}
+            <p>Nemaš spremljenih favorita.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

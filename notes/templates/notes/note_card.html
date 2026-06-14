@@ -1,0 +1,18 @@
+<div class="note-card">
+    <h3>{{ note.course_name }}</h3>
+    <p>{{ note.title }}</p>
+    <p>Fakultet: {{ note.faculty }}</p>
+    <p>Autor: {{ note.author.username }}</p>
+
+    <div class="card-actions">
+        <a href="{% url 'notes:note_detail' note.id %}">Detalji</a>
+
+        {% if show_edit_delete %}
+            <a href="{% url 'notes:edit_note' note.id %}">Uredi</a>
+            <form method="post" action="{% url 'notes:delete_note' note.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">Obriši</button>
+            </form>
+        {% endif %}
+    </div>
+</div>

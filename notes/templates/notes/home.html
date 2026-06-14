@@ -1,22 +1,22 @@
 {% extends 'notes/base.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>NoteFellas - Skripte</h1>
+    <h1>Skripte</h1>
 
-    <div class="notes-grid">
+    <form method="get" class="search-form" id="search-form">
+        <input type="text" name="query" id="search-input" value="{{ query }}" placeholder="Pretraži po kolegiju...">
+        <button type="submit">Pretraži</button>
+    </form>
+
+    <div class="notes-grid" id="notes-grid">
         {% for note in notes %}
-            <div class="note-card">
-                <h3>{{ note.title }}</h3>
-                <p>Kolegij: {{ note.course_name }}</p>
-                <p>Fakultet: {{ note.faculty }}</p>
-                <p>Autor: {{ note.author.username }}</p>
-
-                <div class="card-actions">
-                    <a href="{% url 'notes:note_detail' note.id %}">Detalji</a>
-                </div>
-            </div>
+            {% include 'notes/note_card.html' %}
         {% empty %}
-            <p>Trenutno nema objavljenih skripti.</p>
+            <p>Nema rezultata.</p>
         {% endfor %}
     </div>
+
+    <script src="{% static 'notes/js/search.js' %}"></script>
 {% endblock %}
+EOF

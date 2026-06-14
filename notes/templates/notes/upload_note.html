@@ -1,6 +1,14 @@
 {% extends 'notes/base.html' %}
+{% load static %}
 
 {% block content %}
     <h1>Objavi skriptu</h1>
-    <p>Forma za upload dolazi ovdje.</p>
+
+    <form method="post" enctype="multipart/form-data" id="upload-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Objavi</button>
+    </form>
+
+    <script src="{% static 'notes/js/validate.js' %}"></script>
 {% endblock %}
