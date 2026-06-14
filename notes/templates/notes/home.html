@@ -1,0 +1,22 @@
+{% extends 'notes/base.html' %}
+
+{% block content %}
+    <h1>NoteFellas - Skripte</h1>
+
+    <div class="notes-grid">
+        {% for note in notes %}
+            <div class="note-card">
+                <h3>{{ note.title }}</h3>
+                <p>Kolegij: {{ note.course_name }}</p>
+                <p>Fakultet: {{ note.faculty }}</p>
+                <p>Autor: {{ note.author.username }}</p>
+
+                <div class="card-actions">
+                    <a href="{% url 'notes:note_detail' note.id %}">Detalji</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>Trenutno nema objavljenih skripti.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
