@@ -39,7 +39,7 @@ python -m venv venv
 ```
 Windows:
 ```bash
-venv\Scripts\activate
+venv/Scripts/activate
 ```
 
 3. Install requirements
